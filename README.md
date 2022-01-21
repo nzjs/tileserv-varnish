@@ -33,7 +33,13 @@ select postgis_full_version();
 postgres://postgres:admin1234@host.docker.internal:15432/postgres
 ```
 
-#### 4. Run Docker compose `build` first, and then run pg_tileserv and varnish together.
+#### 4. Make configuration changes as required
+
+You can make configuration changes to the tile server and varnish settings within `docker-compose.yml` and `/config/pg_tileserv.toml`.
+
+Although the default settings in these files should be suitable to fit most generic needs.
+
+#### 5. Run Docker compose `build` first, and then run pg_tileserv and varnish together
 
 ```bash
 cd ../path/to/tileserv-varnish
@@ -41,17 +47,17 @@ docker-compose build --no-cache
 docker-compose up
 ```
 
-#### 5. Voilà !
+#### 6. Voilà !
 
 The pg_tileserv service should now be running behind the varnish HTTP cache.
 
-#### 6. Testing
+#### 7. Testing
 
 Access the service at `<host>:80`, view some spatial tiles and check the pg_tileserv logs in the terminal. 
 
 You'll notice that at first, logs will appear as you pan around on the map. Afterwards, the cache will be serving them so logging stops until the cache is refreshed.
 
-#### 7. Metrics/Logs
+#### 8. Metrics/Logs
 
 Tile metrics are enabled too, so if you need to see metrics for pg_tileserv for Grafana, they can be accessed at `<host>:80/metrics.
 
