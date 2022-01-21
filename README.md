@@ -59,7 +59,7 @@ You'll notice that at first, logs will appear as you pan around on the map. Afte
 
 #### 8. Metrics/Logs
 
-Tile metrics are enabled too, so if you need to see metrics for pg_tileserv for Grafana, they can be accessed at `<host>:80/metrics.
+Tile metrics are enabled too, so if you need to see metrics for pg_tileserv for Grafana, they can be accessed at `<host>:80/metrics`.
 
 Varnish dashboard can be viewed at `<host>:6085/stats` with the credentials set in `docker-compose.yml`.
 
