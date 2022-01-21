@@ -1,0 +1,37 @@
+# Docker compose file for pg_tileserv and varnish http cache.
+# Set PARAM_VALUE: "-p default_ttl=60" to the desired length
+# of time that the cache is stored for (eg 60 for 60 seconds)
+version: '3.3'
+
+networks:
+  webapp:
+
+services:
+  web:
+    image: eeacms/varnish
+    ports:
+      - "80:6081"
+      - "6085:6085"
+    environment:
+      BACKENDS_PROBE_INTERVAL: "15s"
+      BACKENDS_PROBE_TIMEOUT: "5s"
+      BACKENDS_PROBE_WINDOW: "3"
+      BACKENDS: "tileserv:7800"
+      DNS_ENABLED: "false"
+      DASHBOARD_USER: "admin"
+      DASHBOARD_PASSWORD: "admin1234"
+      DASHBOARD_SERVERS: "web"
+      PARAM_VALUE: "-p default_ttl=60"
+    networks:
+      - webapp
+    depends_on:
+      - tileserv
+  tileserv:
+    build: ./
+    image: pramsey/pg_tileserv
+    ports:
+      - "7800:7800"
+    networks:
+      - webapp
+    environment:
+      - DATABASE_URL=postgres://postgres:admin1234@host.docker.internal:15432/postgres
