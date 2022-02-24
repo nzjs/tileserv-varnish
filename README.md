@@ -39,10 +39,11 @@ You can make configuration changes to the tile server and varnish settings withi
 
 Although the default settings in these files should be suitable to fit most generic needs.
 
-#### 5. Run Docker compose `build` first, and then run pg_tileserv and varnish together
+#### 5. Set permissions on the app, run Docker compose `build`, and then run pg_tileserv and varnish together
 
 ```bash
 cd ../path/to/tileserv-varnish
+chmod a+x ../path/to/tileserv-varnish/pg_tileserv
 docker-compose build --no-cache
 docker-compose up
 ```
